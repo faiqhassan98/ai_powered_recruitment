@@ -3,8 +3,11 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "./ui/button"
 import { ChevronDown, FileText, GraduationCap, LayoutDashboard, PenBox, StarsIcon } from "lucide-react"
-import { DropdownMenu, DropdownMenuItem, DropdownMenuLabel, DropdownMenuContent, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-const Header = () => {
+import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { checkUser } from "@/lib/checkUser"
+
+export default async function Header() {
+  await checkUser();
     return (
         <header className="fixed top-0 w-full border-b bg-background/80 backdrop-blur-md z-50 supports-[backdrop-filter]:bg-background/60">
             <nav className="container mx-auto px-4 h-17 flex items-center justify-between">
@@ -72,7 +75,5 @@ const Header = () => {
                 </div>
             </nav>
         </header>
-    )
+    );
 }
-
-export default Header
