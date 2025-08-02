@@ -20,7 +20,7 @@ model User {
   experience      Int?
   skills          String[]
   assessments     Assessment[]
-  coverLetter     CoverLetter?
+  coverLetter     CoverLetter[]
   resume          Resume?
   industryInsight IndustryInsight? @relation(fields: [industry], references: [industry])
 }
@@ -45,48 +45,39 @@ model Resume {
   content   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  atsScore  Float?
+  feedback  String?
   user      User     @relation(fields: [userId], references: [id])
 }
 
 model CoverLetter {
   id             String   @id @default(cuid())
-  userId         String   @unique
+  userId         String
   content        String
   jobDescription String?
   companyName    String
   jobTitle       String
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+  status         String   @default("draft")
   user           User     @relation(fields: [userId], references: [id])
 
   @@index([userId])
 }
 
 model IndustryInsight {
-  id                String        @id @default(cuid())
-  industry          String        @unique
+  id                String   @id @default(cuid())
+  industry          String   @unique
   salaryRanges      Json[]
   growthRate        Float
-  demandLevel       DemandLevel
   topSkills         String[]
-  marketOutlook     MarketOutlook
   keyTrends         String[]
   recommendedSkills String[]
-  lastUpdated       DateTime      @default(now())
+  lastUpdated       DateTime @default(now())
   nextUpdate        DateTime
+  demandLevel       String
+  marketOutlook     String
   users             User[]
 
   @@index([industry])
-}
-
-enum DemandLevel {
-  HIGH
-  MEDIUM
-  LOW
-}
-
-enum MarketOutlook {
-  POSITIVE
-  NEUTRAL
-  NEGATIVE
 }
