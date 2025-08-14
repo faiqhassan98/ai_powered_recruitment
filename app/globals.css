@@ -163,6 +163,7 @@
 
 .hero-image-wrapper{
   perspective: 1000px;
+  overflow: hidden;
 }
 
 .hero-image{
